@@ -1,0 +1,130 @@
+Result Skip Results Iframe EDIT ON BODY {
+  font-family: 'Open Sans', sans-serif;
+  color: #FFFFFF;
+  background-color: #000000;
+  text-align: center;
+}
+
+H1 {
+  font-size: 24px;
+}
+
+#colorTurn {
+  font-size: 18px;
+  text-align: center;
+}
+
+#grid {
+  margin: 20px auto;
+  display: table;
+  width: 410px;
+  height: 410px;
+  padding: 0px;
+  border-collapse: collapse;
+  background: #129104;
+  border: 1px solid #0a5e01;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  border-spacing: 5px 5px;
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000000;
+  padding: 4px;
+}
+
+.disc {
+  width: 36px;
+  height: 36px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/20/Othello-Standard-Board.jpg');
+}
+
+.infoName {
+  margin-bottom: 0px;
+  text-align: center;
+  background-color: #129104;
+}
+
+.infoScore {
+  width: 130px;
+  /* height:130px; */
+  line-height: 130px;
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 400%;
+  text-align: center;
+  margin: 0;
+  border-radius: 0 0 10% 10% ;
+}
+
+#player2Score {
+  background-color: #000000;
+  color: white;
+}
+
+#player1Score {
+  background-color: white;
+  color: black;
+}
+
+#infoPlayer1,
+#infoPlayer2 {
+  display: inline-block;
+  position: absolute;
+  top: 30%;
+}
+
+#win {
+  width: 30%;
+  height: 60%;
+  background-color: rgba(207, 29, 148, 0.863);
+  position: absolute;
+  left: 35%;
+  right: 35%;
+  top: 20%;
+  display: none
+  ;
+}
+#infoPlayer1{
+  right: 5%;
+}
+#infoPlayer2{
+  left: 5%;
+}
+#winner{
+  text-shadow: 2px 2px 5px rgb(5, 189, 118);
+  text-align: center;
+  font-size: 600%;
+  color: rgb(255, 187, 0);
+  transition: all 0.3s;
+}
+#infoWin{
+  font-size: 200%;
+  text-align: center;
+  position: absolute;
+  display: block;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  /* margin-bottom: -50px; */
+}
