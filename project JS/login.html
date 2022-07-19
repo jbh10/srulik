@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/20/Othello-Standard-Board.jpg');
+        }
+
+        #main {
+            background-color: rgb(101, 202, 76);
+            width: 350px;
+            height: 300px;
+            margin: 0 auto;
+            margin-top: -10px;
+            border-radius: 0 0 30px 30px;
+            /* padding: 20px; */
+            /* display: inline-block; */
+        }
+
+        form:not(#next1) {
+            display: grid;
+            grid-template-columns: auto auto;
+            row-gap: 10px;
+        }
+
+        button:not(#upOk) {
+            width: 49%;
+            height: 45px;
+            border-bottom: hidden;
+            border-radius: 55% 55% 5% 5%;
+            margin: 0;
+            border: 0px black solid;
+
+        }
+
+        #butt {
+            margin: 70px auto -10px;
+            text-align: center;
+            padding: 0%;
+
+        }
+
+        #samePass,
+        #next,
+        #checkUser {
+            display: none;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #signUp,
+        #signIn,
+        #next {
+            background-color: brown;
+            position: relative;
+            margin: 0;
+            padding: 20px;
+            border-radius: 0 0 15% 15%;
+            height: 200px;
+        }
+
+        #upOk,
+        #inOk {
+            display: block;
+            position: absolute;
+            bottom: 10px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body dir="rtl">
+    <div id="main">
+        <h1>ברוך הבא למשחק ריברסי!!!</h1>
+        <!-- <h2 id="playerGame">Player 1</h2> -->
+        <div id="butt">
+            <button id="bIn">כניסה</button>
+            <button id="bUp">עדיין לא רשום?</button>
+        </div>
+        <div id="signUp">
+            <form id="signUpForm">
+                <label for="userName">שם משתמש</label>
+                <input type="text" id="userName" placeholder="בחר שם משתמש" required>
+                <label for="email">דוא"ל</label>
+                <input type="email" id="email" placeholder="ההוא עם השטרודל" required>
+                <label for="pass1">סיסמא</label>
+                <input type="password" id="pass1" placeholder="בחר סיסמא (לא מידי קשה)" required>
+                <label for="pass2">אימות סיסמא</label>
+                <input type="password" id="pass2" placeholder="רוצים לבדוק שלא שכחת..." required>
+
+            </form>
+            <p id="checkUser">שם המשתמש כבר תפוס!!</p>
+            <p id="samePass">הסיסמאות אינם תואמות!!</p>
+            <!-- <input type="button" id="upOk" value="ok"> -->
+            <button id="upOk" disabled>נרשמתי</button>
+        </div>
+        <div id="signIn">
+            <form id="signInForm">
+                <label for="userNameIn">שם משתמש</label>
+                <input type="text" id="userNameIn" placeholder="מה שם המשתמש שלך?">
+                <label for="passIn">סיסמא</label>
+                <input type="password" id="passIn" placeholder="סיסמא, בבקשה">
+            </form>
+            <input type="button" value="יאללה למשחק" id="inOk">
+        </div>
+        <div id="next">
+            <h1 id="welcome"></h1>
+            <form id="next1">
+                <label for="who2">עוד שאלה אחת וזהו... <br> עם מי תרצה לשחק? <br></label>
+                <input type="text" id="who2">
+            </form>
+            <button id="nextOk">רוצה כבר לשחק!!</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('userName').addEventListener('input', checkUser);
+        document.getElementById('pass2').addEventListener('input', checkPass)
+        document.getElementById('upOk').addEventListener('click', upOkFunc)
+        document.getElementById('inOk').addEventListener('click', inOkFunc)
+        document.getElementById("bIn").addEventListener('click', inFunc);
+        document.getElementById("bUp").addEventListener('click', upFunc);
+        document.getElementById("nextOk").addEventListener('click', nextOk);
+        var users = JSON.parse(localStorage.getItem("users")) || [];
+        console.log("users", users);
+        var checkUse = true
+
+
+
+        function checkUser() {
+            let newUser = document.getElementById('userName').value;
+            let mess = document.getElementById('checkUser')
+            mess.style.display = 'none'
+            checkUse = true
+            for (let i = 0; i < users.length; i++) {
+                if (newUser == users[i].userName) {
+                    console.log(users[i].userName);
+                    mess.style.display = 'block'
+                    checkUse = false
+                }
+                // else{
+                //     mess.style.display = 'none'
+                // }
+
+            }
+        }
+
+        function nextOk() {
+            users = JSON.parse(localStorage.getItem("users"));
+            let gamer = localStorage.getItem("gamer")
+            users[gamer].player2 = document.getElementById('who2').value
+            localStorage.setItem("users", JSON.stringify(users));
+            console.log(users[gamer].player2);
+            localStorage.setItem("log", '1')
+            window.open('othello/othello.html', '_self')
+        }
+        function inFunc() {
+            document.getElementById("signUp").style.display = 'none'
+            document.getElementById("signIn").style.display = ''
+            document.getElementById('bIn').style.backgroundColor = 'brown'
+            document.getElementById('bUp').style.backgroundColor = 'white'
+        }
+        function upFunc() {
+            document.getElementById("signUp").style.display = ''
+            document.getElementById("signIn").style.display = 'none'
+            document.getElementById('bIn').style.backgroundColor = 'white'
+            document.getElementById('bUp').style.backgroundColor = 'brown'
+
+        }
+        function upOkFunc() {
+            if (!checkUse) {
+                alert('שם המשתמש תפוס!!')
+                return
+            }
+            let userName = document.getElementById('userName').value;
+            let email = document.getElementById('email').value;
+            let pass = document.getElementById('pass1').value;
+            if (userName == null || userName == '' && email == null || email == '') {
+                alert('השדות הינם שדות חובה')
+                return
+            }
+            let user = {
+                userName: userName,
+                email: email,
+                pass: pass,
+                grid: "0",
+                player2: 'undefined'
+            }
+            users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push(user);
+            localStorage.setItem("users", JSON.stringify(users));
+            localStorage.setItem("gamer", users.length - 1)
+            localStorage.setItem("cont", '0')
+            next()
+        }
+        function checkPass() {
+            let pass1 = document.getElementById('pass1').value;
+            let pass2 = document.getElementById('pass2').value;
+            document.getElementById('samePass').style.display = 'block'
+            if (pass1 == pass2) {
+                document.getElementById('samePass').style.display = 'none'
+                document.getElementById('upOk').disabled = false
+
+            }
+
+        }
+        let players = []
+        function inOkFunc() {
+            let userPos = 0
+            let userName = document.getElementById('userNameIn').value;
+            let pass = document.getElementById('passIn').value;
+            // let users = JSON.parse(localStorage.getItem("users"));
+            let findUser = false
+            for (const i in users) {
+                if (userName == users[i].userName) {
+                    if (pass == users[i].pass) {
+                        localStorage.setItem('gamer', i)
+                        checkGamer()
+                        next()
+                        return
+                    } else {
+                        alert('הסיסמא לא נכונה\nאנא נסה שוב, או צור חשבון חדש')
+                        return
+                    }
+                }
+            }
+            alert('שם המשתמש אינו קיים במערכת, תוכל ליצור משתמש חדש')
+        }
+        function next() {
+            let gamer = localStorage.getItem('gamer')
+            console.log(users[gamer]);
+            
+            document.getElementById("signUp").style.display = 'none'
+            document.getElementById("bUp").style.display = 'none'
+            document.getElementById("bIn").style.display = 'none'
+            document.getElementById("signIn").style.display = 'none'
+            document.getElementById('next').style.display = 'block'
+            document.getElementById('welcome').innerHTML = `ברוך הבא ${users[gamer].userName}`
+        }
+        function checkGamer() {
+            let gamer = localStorage.getItem('gamer')
+            if (users[gamer].player2 == 'undefined') {
+                return
+            } else {
+                let text = `אתה כבר באמצע משחק עם ${users[gamer].player2}\nתרצה להמשיך את המשחק?\n(הקש אישור להמשך וביטול למשחק חדש)`
+                if (confirm(text) == true) {
+                    localStorage.setItem("cont", '1')
+                    localStorage.setItem("log", '1')
+                    window.open('othello/othello.html', '_self')
+                    return
+                }else{
+                    localStorage.setItem("cont", '0')
+                }
+            }
+
+
+            // --
+        }
+        upFunc()
+    </script>
+</body>
+
+</html>
